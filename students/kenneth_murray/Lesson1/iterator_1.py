@@ -26,10 +26,31 @@ class IterateMe_1:
             return self.current
         else:
             raise StopIteration
+class ItterateKen:
+#extending by adding start and step
+#from class on Tuesday 4/10
 
+    def __init__(self,  start, stop, step=1):
+        self.start = start
+        self.stop = stop
+        self.step = step
+
+    def __iter__(self):
+        self.current = self.start - self.step
+        return self
+
+    def __next__(self):
+        self.current += self.step
+        if self.current < self.stop:
+            return self.current
+        else:
+            raise StopIteration
 
 if __name__ == "__main__":
 
     print("Testing the iterator")
     for i in IterateMe_1():
+        print(i)
+    print("Testing the kenterator")
+    for i in ItterateKen(start=0, stop = 20, step = 2):
         print(i)
