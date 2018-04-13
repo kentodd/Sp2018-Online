@@ -19,7 +19,7 @@ def tuple_from_csv(csv_in):
             music_list.append(row_tuple)
     return music_list
 
-def 
+def music
 
 if __name__ == '__main__':
 
