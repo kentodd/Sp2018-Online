@@ -15,10 +15,15 @@ format = "%(asctime)s %(filename)s:%(lineno)-3d %(levelname)s %(message)s"
 
 formatter = logging.Formatter(format)
 warn_log_name = str(datetime.date.today())
+
 file_handler = logging.FileHandler(warn_log_name + '_Warning.log')
+file_error_handler = logging.FileHandler(warn_log_name + 'sys_error.log')
 
 file_handler.setLevel(logging.WARNING)
 file_handler.setFormatter(formatter)
+
+file_error_handler.setLevel(logging.ERROR)
+file_error_handler.setFormatter(formatter)
 
 console_handler = logging.StreamHandler()
 console_handler.setLevel(0)
@@ -27,6 +32,7 @@ console_handler.setFormatter(formatter)
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 logger.addHandler(file_handler)
+logger.addHandler(file_error_handler)
 logger.addHandler(console_handler)
 
 
