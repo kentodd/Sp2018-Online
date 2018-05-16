@@ -1,5 +1,5 @@
 class Divider(object):
 
     @staticmethod
-    def calc(operand_1, operand_2):
+    def calc(operand_2, operand_1):
         return operand_2/operand_1
