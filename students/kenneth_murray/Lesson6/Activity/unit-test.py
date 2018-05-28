@@ -1,3 +1,6 @@
+"""This is the unit test for the calculator"""
+
+
 from unittest import TestCase
 from unittest.mock import MagicMock
 
@@ -8,7 +11,10 @@ from calculator.divider import Divider
 from calculator.calculator import Calculator
 from calculator.exceptions import InsufficientOperands
 
+
 class AdderTests(TestCase):
+
+    """this is the class for addition tests"""
 
     def test_adding(self):
         adder = Adder()
@@ -20,6 +26,8 @@ class AdderTests(TestCase):
 
 class SubtracterTests(TestCase):
 
+    """this is the class for subtraction tests"""
+
     def test_subtracting(self):
         subtracter = Subtracter()
 
@@ -29,6 +37,8 @@ class SubtracterTests(TestCase):
 
 
 class DividerTests(TestCase):
+
+    """this is the class for division tests"""
 
     def test_dividing(self):
         divider = Divider()
@@ -40,6 +50,8 @@ class DividerTests(TestCase):
 
 class MultiplierTests(TestCase):
 
+    """this is the class for multiplication tests"""
+
     def test_multiplying(self):
         multiplier = Multiplier()
 
@@ -49,6 +61,8 @@ class MultiplierTests(TestCase):
 
 
 class CalculatorTests(TestCase):
+
+    """This sets up the test cases for the calculator"""
 
     def setUp(self):
         self.adder = Adder()

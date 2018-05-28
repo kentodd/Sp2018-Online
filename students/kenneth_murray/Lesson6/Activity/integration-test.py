@@ -1,3 +1,6 @@
+"""unit test for the calculator methods"""
+
+
 from unittest import TestCase
 from unittest.mock import MagicMock
 
@@ -10,6 +13,8 @@ from calculator.exceptions import InsufficientOperands
 
 
 class ModuleTests(TestCase):
+
+    """this is the module test class"""
 
     def test_module(self):
 
