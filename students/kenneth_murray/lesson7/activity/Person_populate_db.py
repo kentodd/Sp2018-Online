@@ -1,8 +1,5 @@
 """
-    Learning persistence with Peewee and sqlite
-    delete the database file to start over
-        (but running this program does not require it)
-
+    Ken MurrayLesson 7 activity
         populate the DB with data
 """
 
