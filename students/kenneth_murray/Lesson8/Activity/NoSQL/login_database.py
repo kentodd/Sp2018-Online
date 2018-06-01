@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
     module that will login to the various demonstration databases consistently
 """
@@ -7,7 +8,6 @@ from pathlib import Path
 import pymongo
 import redis
 from neo4j.v1 import GraphDatabase, basic_auth
-
 import utilities
 
 log = utilities.configure_logger('default', '../logs/login_databases_dev.log')
@@ -31,10 +31,10 @@ def login_mongodb_cloud():
         print(f'error: {e}')
 
     client = pymongo.MongoClient(f'mongodb://{user}:{pw}'
-                                 '@cluster0-shard-00-00-wphqo.mongodb.net:27017,'
-                                 'cluster0-shard-00-01-wphqo.mongodb.net:27017,'
-                                 'cluster0-shard-00-02-wphqo.mongodb.net:27017/test'
-                                 '?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin')
+                                 '@cluster0-shard-00-00-ayfzq.mongodb.net:27017,'
+                                 'cluster0-shard-00-01-ayfzq.mongodb.net:27017,'
+                                 'cluster0-shard-00-02-ayfzq.mongodb.net:27017/test'
+                                 '?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true')
 
     return client
 
@@ -48,7 +48,6 @@ def login_redis_cloud():
         host = config["redis_cloud"]["host"]
         port = config["redis_cloud"]["port"]
         pw = config["redis_cloud"]["pw"]
-
 
     except Exception as e:
         print(f'error: {e}')
@@ -77,8 +76,8 @@ def login_neo4j_cloud():
 
     graphenedb_user = config["neo4j_cloud"]["user"]
     graphenedb_pass = config["neo4j_cloud"]["pw"]
-    graphenedb_url = 'bolt://hobby-opmhmhgpkdehgbkejbochpal.dbs.graphenedb.com:24786'
+    graphenedb_url = 'bolt://hobby-mdcnfkohpmongbkehdoddgbl.dbs.graphenedb.com:24786'
     driver = GraphDatabase.driver(graphenedb_url,
-                                  auth=basic_auth(graphenedb_user, graphenedb_pass))
+    auth=basic_auth(graphenedb_user, graphenedb_pass))
 
     return driver

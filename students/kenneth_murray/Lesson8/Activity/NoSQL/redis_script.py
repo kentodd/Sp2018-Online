@@ -1,5 +1,11 @@
+#!/usr/bin/env python3
 """
     demonstrate use of Redis
+    lesson 8 activity
+    Add some customer data to the cache, Have Redis store a customer name,
+    telephone and zip for 6 or so customers.
+    Then show how you can retrieve a zip code,
+    and then a phone number, for a known customer.
 """
 
 
@@ -26,9 +32,30 @@ def run_example():
         log.info('But I must know the key')
         log.info(f'The results of r.get: {email}')
 
-        log.info('Step 3: cache more data in Redis')
-        r.set('pam', 'pam@anywhere.com')
-        r.set('fred', 'fred@fearless.com')
+        log.info('lesson8 additions')
+        r.rpush('jeff', 'jeff@jeff.com')
+        r.rpush('jeff', '111-1111')
+        r.rpush('jeff', '98888')
+        r.rpush('mick', 'mick@mick.com')
+        r.rpush('mick', '222-2222')
+        r.rpush('mick', '77777')
+        r.rpush('john', 'john@john.com')
+        r.rpush('john', '333-3333')
+        r.rpush('john', '55555')
+        r.rpush('jintana', 'tangsuck@tangsuk.com')
+        r.rpush('jintana', '444-4444')
+        r.rpush('jintana', '88888')
+        r.rpush('Thanh', 'thanh@thanh.com')
+        r.rpush('Thanh', '555-5555')
+        r.rpush('Thanh', '77755')
+
+        log.info('Get johns Zip code')
+        zip_code = r.lindex('john', 2)
+        log.info(f'Johns ZipCode is {zip_code}')
+
+        log.info('get Thanhs phone number')
+        phone_number = r.lindex('Thanh', 1)
+        log.info(f'Thanhs phone number is {phone_number}')
 
         log.info('Step 4: delete from cache')
         r.delete('andy')

@@ -1,11 +1,15 @@
+#!/usr/bin/env python3
 """
     neo4j example
+    lesson8
+    Add some new people to the database.
+    Then add some colors. Create associations between people and their favorite colors
+    (they can have more than one).
+    Then list all of the people who have each color as their favorite.
 """
-
 
 import utilities
 import login_database
-import utilities
 
 log = utilities.configure_logger('default', '../logs/neo4j_script.log')
 
@@ -31,6 +35,12 @@ def run_example():
                             ('Fred', 'Barnes'),
                             ('Mary', 'Evans'),
                             ('Marie', 'Curie'),
+                            ('Ken', 'Murray'),
+                            ('Nathan', 'Merrill'),
+                            ('Tina', 'Tangsuk'),
+                            ('color', 'red'),
+                            ('color', 'blue'),
+                            ('color', 'green')
                             ]:
             cyph = "CREATE (n:Person {first_name:'%s', last_name: '%s'})" % (
                 first, last)
@@ -46,52 +56,50 @@ def run_example():
             print(record['first_name'], record['last_name'])
 
         log.info('Step 4: Create some relationships')
-        log.info("Bob Jones likes Alice Cooper, Fred Barnes and Marie Curie")
+        log.info("Bob Jones likes blue")
 
-        for first, last in [("Alice", "Cooper"),
-                            ("Fred", "Barnes"),
-                            ("Marie", "Curie")]:
+        for first, last in [("color", "blue")]:
             cypher = """
               MATCH (p1:Person {first_name:'Bob', last_name:'Jones'})
-              CREATE (p1)-[friend:FRIEND]->(p2:Person {first_name:'%s', last_name:'%s'})
+              CREATE (p1)-[color:COLOR]->(p2:Color {first_name:'%s', last_name:'%s'})
               RETURN p1
             """ % (first, last)
             session.run(cypher)
 
-        log.info("Step 5: Find all of Bob's friends")
+        log.info("Step 5: Find  of Bob's color")
         cyph = """
           MATCH (bob {first_name:'Bob', last_name:'Jones'})
-                -[:FRIEND]->(bobFriends)
-          RETURN bobFriends
+                -[:COLOR]->(bobColors)
+          RETURN bobColors
           """
         result = session.run(cyph)
-        print("Bob's friends are:")
+        print("Bob's colors are:")
         for rec in result:
-            for friend in rec.values():
-                print(friend['first_name'], friend['last_name'])
+            for color in rec.values():
+                print(color['last_name'])
 
-        log.info("Setting up Marie's friends")
+        log.info("Setting up Marie's colors")
 
-        for first, last in [("Mary", "Evans"),
-                            ("Alice", "Cooper"),
-                            ('Fred', 'Barnes'),
+        for first, last in [("color", "blue"),
+                            ("color", "green"),
+                            ('color', 'red'),
                             ]:
             cypher = """
               MATCH (p1:Person {first_name:'Marie', last_name:'Curie'})
-              CREATE (p1)-[friend:FRIEND]->(p2:Person {first_name:'%s', last_name:'%s'})
+              CREATE (p1)-[color:COLOR]->(p2:Color {first_name:'%s', last_name:'%s'})
               RETURN p1
             """ % (first, last)
 
             session.run(cypher)
 
-        print("Step 6: Find all of Marie's friends?")
+        print("Step 6: Find all of Marie's colors")
         cyph = """
           MATCH (marie {first_name:'Marie', last_name:'Curie'})
-                -[:FRIEND]->(friends)
-          RETURN friends
+                -[:COLOR]->(colors)
+          RETURN colors
           """
         result = session.run(cyph)
-        print("\nMarie's friends are:")
+        print("\nMarie's colors are:")
         for rec in result:
             for friend in rec.values():
-                print(friend['first_name'], friend['last_name'])
+                print(friend['last_name'])

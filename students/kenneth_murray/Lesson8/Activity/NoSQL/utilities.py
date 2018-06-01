@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 enable easy and controllable logging
 """

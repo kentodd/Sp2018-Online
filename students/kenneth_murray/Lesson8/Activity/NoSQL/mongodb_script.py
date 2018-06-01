@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
 """
     mongodb example
+    lesson 8 Activity
+    change the Mongodb program to store and retrieve using these new values.
+    Next, write a mongodb query to retrieve and print just the red products, and the just the couches.
 """
 
 import pprint
@@ -35,11 +39,27 @@ def run_example(furniture_items):
         print('Plastic products')
         pprint.pprint(results)
 
+        log.info('Find the products that are red')
+        query = {'color': 'red'}
+        results = furniture.find_one(query)
+
+        log.info('Print the red products')
+        print('Red products')
+        pprint.pprint(results)
+
+        log.info('Find the products that are couches')
+        query = {'product': 'couch'}
+        results = furniture.find_one(query)
+
+        log.info('print the couches')
+        print('Couches')
+        pprint.pprint(results)
+
         log.info('Step 5: Delete the blue couch (actually deletes all blue couches)')
-        furniture.remove({"product": {"$eq": "Blue couch"}})
+        furniture.remove({"product": {"$eq": "couch"}} and {"color": {"$eq": "blue"}})
 
         log.info('Step 6: Check it is deleted with a query and print')
-        query = {'product': 'Blue couch'}
+        query = ({'product': 'couch'} and {'color': 'blue'})
         results = furniture.find_one(query)
         print('The blue couch is deleted, print should show none:')
         pprint.pprint(results)
